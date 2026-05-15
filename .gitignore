@@ -1,0 +1,16 @@
+# Python 暫存
+__pycache__/
+*.py[cod]
+
+# 環境與虛擬機器
+.conda_env/
+venv/
+.env
+
+# 訓練產出 (GitHub 不建議放大型權重檔與日誌)
+runs/
+*.pt
+
+# 暫存資料
+temp_uploads/*
+!temp_uploads/.gitkeep

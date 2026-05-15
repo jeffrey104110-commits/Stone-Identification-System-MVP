@@ -1,0 +1,23 @@
+-- 1. 建立批次資訊表格：stone_batches
+CREATE TABLE stone_batches (
+    batch_id SERIAL PRIMARY KEY,            -- 自動遞增主鍵
+    stone_type VARCHAR(100) NOT NULL,      -- 石材類型 (如：大理石)
+    source_location VARCHAR(255),          -- 來源地點
+    acquisition_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 採購日期
+    total_weight_kg NUMERIC(10, 2)         -- 總重量 (公斤)
+);
+
+-- 2. 建立瑕疵記錄表格：flaw_records
+CREATE TABLE flaw_records (
+    record_id SERIAL PRIMARY KEY,          -- 瑕疵記錄主鍵
+    batch_id INTEGER NOT NULL,             -- 外鍵：連結 stone_batches.batch_id
+    image_file_path VARCHAR(500) NOT NULL, -- 圖片路徑
+    detection_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 偵測時間
+    defect_description TEXT NOT NULL,      -- 瑕疵描述
+    severity VARCHAR(50),                  -- 嚴重度 (如：輕微、致命)
+    is_rejection BOOLEAN DEFAULT FALSE     -- 是否判定為廢料
+);
+
+-- 3. 建立索引（Index）優化查詢速度
+CREATE INDEX idx_flaw_batch ON flaw_records (batch_id);
+
